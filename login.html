@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - فخم البن</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <!-- Logo -->
+            <div class="login-logo">
+                <div class="logo">☕</div>
+                <h1>فخم البن</h1>
+                <p>لوحة التحكم</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" id="email" required placeholder="admin@fakhralban.sa">
+                </div>
+
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" id="password" required placeholder="••••••••">
+                </div>
+
+                <button type="submit" class="btn-primary" id="login-btn">
+                    <span id="login-text">تسجيل الدخول</span>
+                    <span id="login-spinner" class="spinner" style="display: none;"></span>
+                </button>
+            </form>
+
+            <!-- Back Link -->
+            <div class="back-link">
+                <a href="index.html">← العودة للموقع</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <!-- Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script>
+        const loginForm = document.getElementById('login-form');
+        const loginBtn = document.getElementById('login-btn');
+        const loginText = document.getElementById('login-text');
+        const loginSpinner = document.getElementById('login-spinner');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Show loading
+            loginBtn.disabled = true;
+            loginText.style.display = 'none';
+            loginSpinner.style.display = 'inline-block';
+
+            try {
+                // Sign in with Firebase
+                await firebase.auth().signInWithEmailAndPassword(email, password);
+
+                // Check if user is admin
+                const user = firebase.auth().currentUser;
+                const adminDoc = await db.collection('admins').doc(user.uid).get();
+
+                if (adminDoc.exists && adminDoc.data().isActive) {
+                    // Redirect to admin panel
+                    window.location.href = 'admin.html';
+                } else {
+                    throw new Error('ليس لديك صلاحيات الدخول');
+                }
+            } catch (error) {
+                alert(error.message || 'خطأ في البريد الإلكتروني أو كلمة المرور');
+
+                // Reset button
+                loginBtn.disabled = false;
+                loginText.style.display = 'inline';
+                loginSpinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>

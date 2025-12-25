@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&family=Cairo:wght@400;600;700;800&family=Tajawal:wght@400;500;600;700&display=swap');
+
+:root {
+  --font-readex: 'Readex Pro', sans-serif;
+  --font-cairo: 'Cairo', sans-serif;
+  --font-tajawal: 'Tajawal', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-cairo);
+  direction: rtl;
+  background-color: #FAF6F1;
+  color: #4A3228;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF6F1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #7E60A8;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5E4580;
+}
+
+/* Arabic Pattern Background */
+.pattern-bg {
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(126, 96, 168, 0.03) 10px,
+      rgba(126, 96, 168, 0.03) 20px
+    );
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Button hover effects */
+.btn-hover {
+  transition: all 0.3s ease;
+}
+
+.btn-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(126, 96, 168, 0.3);
+}
+
+/* Card animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Loading spinner */
+.spinner {
+  border: 3px solid #FAF6F1;
+  border-top: 3px solid #7E60A8;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
