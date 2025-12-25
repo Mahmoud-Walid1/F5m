@@ -51,18 +51,17 @@
         </div>
     </div>
 
-    <!-- Firebase SDK -->
+    <!-- Firebase SDKs - must load FIRST -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
-    <!-- Scripts -->
+    <!-- Firebase Config - must load AFTER SDKs -->
     <script src="js/firebase-config.js"></script>
+
+    <!-- Login Script - must load LAST -->
     <script>
         const loginForm = document.getElementById('login-form');
         const loginBtn = document.getElementById('login-btn');
-        const loginText = document.getElementById('login-text');
-        const loginSpinner = document.getElementById('login-spinner');
 
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -70,25 +69,12 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            // Show loading
             loginBtn.disabled = true;
-            loginText.style.display = 'none';
-            loginSpinner.style.display = 'inline-block';
+            loginBtn.textContent = 'جاري تسجيل الدخول...';
 
             try {
-                // Sign in with Firebase
                 await firebase.auth().signInWithEmailAndPassword(email, password);
-
-                // Check if user is admin
-                const user = firebase.auth().currentUser;
-                const adminDoc = await db.collection('admins').doc(user.uid).get();
-
-                if (adminDoc.exists && adminDoc.data().isActive) {
-                    // Redirect to admin panel
-                    window.location.href = 'admin.html';
-                } else {
-                    throw new Error('ليس لديك صلاحيات الدخول');
-                }
+                window.location.href = 'admin.html';
             } catch (error) {
                 alert(error.message || 'خطأ في البريد الإلكتروني أو كلمة المرور');
 
