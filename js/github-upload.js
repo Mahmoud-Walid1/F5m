@@ -1,5 +1,6 @@
 // GitHub Configuration
-const GITHUB_TOKEN = 'YOUR_GITHUB_TOKEN'; // من GitHub Settings → Developer settings → Personal access tokens
+// ⚠️ مهم: لا ترفع الـ Token على GitHub! احتفظ به محلياً فقط
+const GITHUB_TOKEN = 'YOUR_GITHUB_TOKEN'; // ضع الـ token هنا محلياً فقط
 const GITHUB_OWNER = 'Mahmoud-Walid1';
 const GITHUB_REPO = 'F5m';
 const GITHUB_BRANCH = 'main';

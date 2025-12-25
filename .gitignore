@@ -1,6 +1,10 @@
 # Firebase config - يمكن رفعه عادي (Firebase مش حساس زي API keys خاصة)
 # js/firebase-config.js
 
+# GitHub Token - لا ترفعه أبداً!
+js/github-upload.js
+js/github-upload.local.js
+
 # Next.js (not needed)
 .next/
 app/

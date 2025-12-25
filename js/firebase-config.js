@@ -8,7 +8,6 @@
 // 4. انزل لـ "Your apps" → اختر Web app (أو أضف واحد)
 // 5. انسخ الـ config كله والصقه هنا ↓
 
-
 const firebaseConfig = {
     apiKey: "AIzaSyDuuKxml7yurRL1KEfmswbRrkGygE3rd5w",
     authDomain: "fkhr-elbn.firebaseapp.com",
