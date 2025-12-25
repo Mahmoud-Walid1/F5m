@@ -1,10 +1,3 @@
-// Firebase Configuration
-// Replace these values with your Firebase project credentials
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
 // ============================================
 // Firebase Configuration
 // ============================================
@@ -14,6 +7,7 @@ import { initializeApp } from "firebase/app";
 // 3. اضغط ⚙️ → Project Settings
 // 4. انزل لـ "Your apps" → اختر Web app (أو أضف واحد)
 // 5. انسخ الـ config كله والصقه هنا ↓
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyDuuKxml7yurRL1KEfmswbRrkGygE3rd5w",
