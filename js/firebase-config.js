@@ -16,12 +16,12 @@ import { initializeApp } from "firebase/app";
 // 5. انسخ الـ config كله والصقه هنا ↓
 
 const firebaseConfig = {
-    apiKey: "AIza...",
-    authDomain: "your-project.firebaseapp.com",
-    projectId: "your-project",
-    storageBucket: "your-project.appspot.com",
-    messagingSenderId: "123456789",
-    appId: "1:123456789:web:xxxxx"
+    apiKey: "AIzaSyDuuKxml7yurRL1KEfmswbRrkGygE3rd5w",
+    authDomain: "fkhr-elbn.firebaseapp.com",
+    projectId: "fkhr-elbn",
+    storageBucket: "fkhr-elbn.firebasestorage.app",
+    messagingSenderId: "826322728576",
+    appId: "1:826322728576:web:3cca07267e481a08da9865"
 };
 
 // Initialize Firebase
