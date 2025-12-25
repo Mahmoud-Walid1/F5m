@@ -1,6 +1,12 @@
 # Firebase config - keep this private!
 js/firebase-config.js
 
+# Next.js (not needed)
+.next/
+app/
+components/
+lib/
+
 # Node modules (if any)
 node_modules/
 

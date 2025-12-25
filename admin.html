@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - فخم البن</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h2>فخم البن</h2>
+                <p>لوحة التحكم</p>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="#categories" class="menu-item active" onclick="showSection('categories')">
+                    <span class="menu-icon">📁</span>
+                    <span>الأقسام</span>
+                </a>
+                <a href="#products" class="menu-item" onclick="showSection('products')">
+                    <span class="menu-icon">☕</span>
+                    <span>المنتجات</span>
+                </a>
+                <a href="#announcements" class="menu-item" onclick="showSection('announcements')">
+                    <span class="menu-icon">📢</span>
+                    <span>الإعلانات</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="index.html" class="btn-back">← العودة للموقع</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Categories Section -->
+            <section id="categories-section" class="admin-section active">
+                <div class="section-header">
+                    <h1>إدارة الأقسام</h1>
+                    <button class="btn-primary" onclick="openCategoryForm()">+ إضافة قسم</button>
+                </div>
+
+                <div id="categories-list" class="items-grid">
+                    <!-- Categories will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Products Section -->
+            <section id="products-section" class="admin-section">
+                <div class="section-header">
+                    <h1>إدارة المنتجات</h1>
+                    <button class="btn-primary" onclick="openProductForm()">+ إضافة منتج</button>
+                </div>
+
+                <div id="products-list" class="items-grid">
+                    <!-- Products will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Announcements Section -->
+            <section id="announcements-section" class="admin-section">
+                <div class="section-header">
+                    <h1>إدارة الإعلانات</h1>
+                    <button class="btn-primary" onclick="openAnnouncementForm()">+ إضافة إعلان</button>
+                </div>
+
+                <div id="announcements-list" class="items-grid">
+                    <!-- Announcements will be loaded here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Category Form Modal -->
+    <div id="category-modal" class="modal">
+        <div class="modal-overlay" onclick="closeCategoryForm()"></div>
+        <div class="modal-content modal-form">
+            <button class="modal-close" onclick="closeCategoryForm()">&times;</button>
+            <h2 id="category-form-title">إضافة قسم جديد</h2>
+
+            <form id="category-form" onsubmit="saveCategory(event)">
+                <input type="hidden" id="category-id">
+
+                <div class="form-group">
+                    <label>اسم القسم *</label>
+                    <input type="text" id="category-name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>صورة القسم *</label>
+                    <input type="file" id="category-image-file" accept="image/*">
+                    <small style="color: #999; font-size: 12px;">أو أدخل رابط مباشر:</small>
+                    <input type="url" id="category-image-url" placeholder="https://..." style="margin-top: 8px;">
+                    <div id="category-image-preview" style="margin-top: 10px;"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>الترتيب</label>
+                    <input type="number" id="category-order" value="1" min="1">
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="category-active" checked>
+                        نشط
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeCategoryForm()">إلغاء</button>
+                    <button type="submit" class="btn-primary" id="category-save-btn">حفظ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Product Form Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-overlay" onclick="closeProductForm()"></div>
+        <div class="modal-content modal-form">
+            <button class="modal-close" onclick="closeProductForm()">&times;</button>
+            <h2 id="product-form-title">إضافة منتج جديد</h2>
+
+            <form id="product-form" onsubmit="saveProduct(event)">
+                <input type="hidden" id="product-id">
+
+                <div class="form-group">
+                    <label>اسم المنتج *</label>
+                    <input type="text" id="product-name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>الوصف</label>
+                    <textarea id="product-description" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>القسم *</label>
+                    <select id="product-category" required>
+                        <option value="">اختر القسم...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>رابط الصورة</label>
+                    <input type="url" id="product-image" placeholder="https://...">
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="product-has-hot">
+                        يتوفر ساخن
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="product-has-cold">
+                        يتوفر بارد
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>الأحجام والأسعار</label>
+                    <div id="sizes-container">
+                        <div class="size-row">
+                            <input type="text" placeholder="الحجم (مثلاً: صغير)" class="size-name">
+                            <input type="number" placeholder="السعر" class="size-price" min="0" step="0.25">
+                            <button type="button" class="btn-remove" onclick="removeSize(this)">×</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-add-size" onclick="addSizeRow()">+ إضافة حجم</button>
+                </div>
+
+                <div class="form-group">
+                    <label>الترتيب</label>
+                    <input type="number" id="product-order" value="1" min="1">
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="product-active" checked>
+                        نشط
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeProductForm()">إلغاء</button>
+                    <button type="submit" class="btn-primary">حفظ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Announcement Form Modal -->
+    <div id="announcement-modal" class="modal">
+        <div class="modal-overlay" onclick="closeAnnouncementForm()"></div>
+        <div class="modal-content modal-form">
+            <button class="modal-close" onclick="closeAnnouncementForm()">&times;</button>
+            <h2 id="announcement-form-title">إضافة إعلان جديد</h2>
+
+            <form id="announcement-form" onsubmit="saveAnnouncement(event)">
+                <input type="hidden" id="announcement-id">
+
+                <div class="form-group">
+                    <label>عنوان الإعلان *</label>
+                    <input type="text" id="announcement-title" required>
+                </div>
+
+                <div class="form-group">
+                    <label>الوصف</label>
+                    <textarea id="announcement-description" rows="4"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>صورة الإعلان</label>
+                    <input type="file" id="announcement-image-file" accept="image/*">
+                    <small style="color: #999; font-size: 12px;">أو أدخل رابط مباشر:</small>
+                    <input type="url" id="announcement-image-url" placeholder="https://..." style="margin-top: 8px;">
+                    <div id="announcement-image-preview" style="margin-top: 10px;"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>الأولوية (الأعلى يظهر أولاً)</label>
+                    <input type="number" id="announcement-priority" value="1" min="1">
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="announcement-active" checked>
+                        نشط
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeAnnouncementForm()">إلغاء</button>
+                    <button type="submit" class="btn-primary" id="announcement-save-btn">حفظ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <!-- Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/github-upload.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+
+</html>
